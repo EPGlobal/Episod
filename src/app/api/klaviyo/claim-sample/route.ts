@@ -52,7 +52,17 @@ export async function POST(request: NextRequest) {
     if (!response.ok) {
       const errorData = await response.json();
       console.error('Klaviyo API error:', errorData);
-      return NextResponse.json({ error: 'Failed to submit sample claim' }, { status: 500 });
+      
+      // Check if error is due to duplicate email (email already exists)
+      const errorMessage = JSON.stringify(errorData).toLowerCase();
+      if (errorMessage.includes('email') && (errorMessage.includes('exist') || errorMessage.includes('duplicate') || errorMessage.includes('already'))) {
+        console.log('Email already exists in Klaviyo, treating as success');
+        return NextResponse.json({ success: true, message: 'Sample claim completed (email already registered)' });
+      }
+      
+      // For any other error, still let the user through but log the error
+      console.error('Klaviyo error, but allowing sample claim through:', errorData);
+      return NextResponse.json({ success: true, message: 'Sample claim completed' });
     }
 
     return NextResponse.json({ success: true });

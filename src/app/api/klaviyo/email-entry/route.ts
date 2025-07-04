@@ -69,10 +69,17 @@ export async function POST(request: NextRequest) {
         statusText: response.statusText,
         errorData 
       });
-      return NextResponse.json({ 
-        error: 'Failed to subscribe',
-        details: `Klaviyo API returned ${response.status}: ${JSON.stringify(errorData)}`
-      }, { status: 500 });
+      
+      // Check if error is due to duplicate email (email already exists)
+      const errorMessage = JSON.stringify(errorData).toLowerCase();
+      if (errorMessage.includes('email') && (errorMessage.includes('exist') || errorMessage.includes('duplicate') || errorMessage.includes('already'))) {
+        console.log('Email already exists in Klaviyo, treating as success');
+        return NextResponse.json({ success: true, message: 'Email already registered' });
+      }
+      
+      // For any other error, still let the user through but log the error
+      console.error('Klaviyo error, but allowing user through:', errorData);
+      return NextResponse.json({ success: true, message: 'Subscription completed' });
     }
 
     const responseData = await response.json();
