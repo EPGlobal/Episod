@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import PlusText from './PlusText';
 
 interface EmailEntryProps {
   onValidationError: () => void;
