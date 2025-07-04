@@ -51,12 +51,12 @@ export default function Home() {
               <source src="/portrait_low.mp4" type="video/mp4" media="(max-width: 1024px)" />
               <source src="/video_low.mp4" type="video/mp4" media="(min-width: 1025px)" />
               <source src="/hero.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
+              Your browser does not support videos {':('}
             </video>
           </div>
           <div className="py-8 lg:absolute lg:top-0 lg:right-20 flex items-center justify-center lg:h-3/4 lg:w-1/2">
             <PlusText>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, quaerat velit nesciunt voluptate possimus, consectetur adipisicing elit.
+            ROOTED IN THE RAW WITH RARE INGREDIENTS, MADE TO AWAKEN EVERY SENSE AND DISRUPT ALL FREQUENCIES. CREATED FOR THOSE WHO MOVE THROUGH THE WORLD WITH INSTINCT.
             </PlusText>
           </div>
         </div>
