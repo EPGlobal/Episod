@@ -63,7 +63,7 @@ export default function Home() {
           <div className="absolute inset-0 flex lg:items-center justify-center z-20">
             <div className='grid lg:grid-cols-2'>
               <div></div>
-              <div className="lg:pr-0 lg:pl-0 px-8 pb-16 lg:pb-0 flex flex-col items-center justify-end">
+              <div className="lg:pr-0 lg:pl-0 px-8 pb-0 lg:pb-0 flex flex-col items-center justify-end">
                 <form className="flex items-center gap-4 pb-8 lg:pb-0">
                   <div className="lg:h-4 overflow-visible pointer-events-auto max-w-[414px]">
                     <PlusText>
