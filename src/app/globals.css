@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --font-family-unica: var(--font-unica77);
+  --font-family-sans: var(--font-unica77), ui-sans-serif, system-ui, sans-serif;
+}
+
 /* Fix webkit autofill background on mobile */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

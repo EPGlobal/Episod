@@ -71,7 +71,7 @@ export default function AnimatedNavText({ onValidationError, onAnimationComplete
   }, [onValidationError, isAnimating, onAnimationComplete]);
 
   return (
-    <div className="lg:pl-6">
+    <div className="pl-4">
       <PlusText>
         {displayText}
       </PlusText>

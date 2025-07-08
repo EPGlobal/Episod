@@ -1,19 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { Country, State } from 'country-state-city';
 
 export default function ClaimSample() {
   const [formData, setFormData] = useState({
     name: '',
-    country: 'THE U.S.',
-    state: 'NEW YORK STATE',
+    country: 'UNITED STATES',
+    state: 'NEW YORK',
     phone: '',
     street: '',
     postalCode: '',
     city: '',
     email: ''
   });
+  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+  const [showStateDropdown, setShowStateDropdown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -22,6 +25,48 @@ export default function ClaimSample() {
       ...prev,
       [field]: value
     }));
+  };
+
+  const handleCountryChange = (country: string) => {
+    setFormData(prev => ({
+      ...prev,
+      country,
+      state: ''
+    }));
+    setShowCountryDropdown(false);
+  };
+
+  const handleStateChange = (state: string) => {
+    setFormData(prev => ({
+      ...prev,
+      state
+    }));
+    setShowStateDropdown(false);
+  };
+
+  const getCountryCode = (countryName: string): string | null => {
+    const country = Country.getAllCountries().find(c => c.name.toUpperCase() === countryName);
+    return country ? country.isoCode : null;
+  };
+
+  const hasStates = () => {
+    const countryCode = getCountryCode(formData.country);
+    if (!countryCode) return false;
+    const states = State.getStatesOfCountry(countryCode);
+    return states && states.length > 0;
+  };
+
+  const getStates = () => {
+    const countryCode = getCountryCode(formData.country);
+    if (!countryCode) return [];
+    return State.getStatesOfCountry(countryCode).map(state => state.name.toUpperCase());
+  };
+
+  const getAllCountries = () => {
+    return Country.getAllCountries().map(country => ({
+      code: country.isoCode,
+      name: country.name.toUpperCase()
+    })).sort((a, b) => a.name.localeCompare(b.name));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -51,6 +96,28 @@ export default function ClaimSample() {
     }
   };
 
+  useEffect(() => {
+    // prefill email
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail) {
+      setFormData(prev => ({
+        ...prev,
+        email: userEmail
+      }));
+    }
+    
+    // Close dropdowns when clicking outside
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!(event.target as Element).closest('.relative')) {
+        setShowCountryDropdown(false);
+        setShowStateDropdown(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   if (isSubmitted) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -63,14 +130,14 @@ export default function ClaimSample() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="">
       {/* Desktop Layout */}
       <div className="hidden lg:flex">
         {/* Left side - Images */}
         <div className="flex flex-col w-full">
           {/* First image with form to the right */}
-          <div className="relative flex w-full">
-            <div className='relative w-2/5'>
+          <div className="flex w-full">
+            <div className='relative w-full'>
               <div className="relative bg-gray-100 w-full   pt-[133%]">
                 <Image
                   src="/1.jpg"
@@ -83,119 +150,10 @@ export default function ClaimSample() {
               </div>
             </div>
             {/* Form next to first image */}
-            <div className="w-3/5 p-8 lg:p-16 flex flex-col gap-8">
-              <div className="flex gap-12 w-full max-w-4xl">
-                {/* Left column - Title */}
-                <div className="flex flex-col">
-                  <div className="text-base text-black">CLAIM YOUR COMPLIMENTARY SAMPLE</div>
-                  <div className="text-xs text-black mt-2">LIMITED AVAILABILITY</div>
-                </div>
-
-                {/* Middle column - Labels */}
-                <div className="flex flex-col space-y-6">
-                  <div className="text-xs text-black">NAME</div>
-                  <div className="text-xs text-black">EMAIL</div>
-                  <div className="text-xs text-black">COUNTRY</div>
-                  <div className="text-xs text-black">PHONE</div>
-                  <div className="text-xs text-black">STREET</div>
-                  <div className="text-xs text-black">POSTAL/ZIP</div>
-                  <div className="text-xs text-black">CITY</div>
-                  <button
-                    type="submit"
-                    className={`text-xs text-black bg-transparent border-none cursor-pointer px-0 text-left ${
-                      isLoading ? 'opacity-50' : ''
-                    }`}
-                    disabled={isLoading}
-                  >
-                    {isLoading ? 'SUBMITTING...' : 'SUBMIT'}
-                  </button>
-                </div>
-
-                {/* Right column - Inputs */}
-                <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
-                  <input
-                    type="text"
-                    placeholder="FULL NAME"
-                    value={formData.name}
-                    onChange={(e) => handleInputChange('name', e.target.value)}
-                    className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs "
-                    spellCheck={false}
-                    required
-                  />
-
-                  <input
-                    type="email"
-                    placeholder="EMAIL ADDRESS"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs "
-                    spellCheck={false}
-                    required
-                  />
-
-                  <div className="flex items-center gap-4">
-                    <button
-                      type="button"
-                      className="text-xs  text-black bg-transparent border-none cursor-pointer"
-                      onClick={() => handleInputChange('country', 'THE U.S.')}
-                    >
-                      + THE U.S.
-                    </button>
-                    <button
-                      type="button"
-                      className="text-xs  text-black bg-transparent border-none cursor-pointer"
-                      onClick={() => handleInputChange('state', 'NEW YORK STATE')}
-                    >
-                      + NEW YORK STATE
-                    </button>
-                  </div>
-
-                  <input
-                    type="tel"
-                    placeholder="+1 PHONE NUMBER"
-                    value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
-                    className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs "
-                    spellCheck={false}
-                    required
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="STREET NAME & NUMBER"
-                    value={formData.street}
-                    onChange={(e) => handleInputChange('street', e.target.value)}
-                    className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs "
-                    spellCheck={false}
-                    required
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="POSTAL CODE"
-                    value={formData.postalCode}
-                    onChange={(e) => handleInputChange('postalCode', e.target.value)}
-                    className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs "
-                    spellCheck={false}
-                    required
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="CITY NAME"
-                    value={formData.city}
-                    onChange={(e) => handleInputChange('city', e.target.value)}
-                    className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs "
-                    spellCheck={false}
-                    required
-                  />
-                </form>
-              </div>
-            </div>
           </div>
 
           {/* Second image with whitespace */}
-          <div className='relative w-2/5'>
+          <div className='relative w-full'>
             <div className="relative bg-gray-100 w-full pt-[133%]">
               <Image
                 src="/2.jpg"
@@ -209,7 +167,7 @@ export default function ClaimSample() {
           </div>
 
           {/* Third image with whitespace */}
-          <div className='relative w-2/5'>
+          <div className='relative w-full'>
             <div className="relative bg-gray-100 w-full   pt-[133%]">
               <Image
                 src="/3.jpg"
@@ -222,6 +180,138 @@ export default function ClaimSample() {
             </div>
           </div>
         </div>
+        <div className='w-3/5 shrink-0'>
+              <div className="p-8 lg:p-16 flex flex-col gap-8 overflow-hidden sticky top-0">
+                <div className="flex gap-12 w-full max-w-4xl">
+                  {/* Left column - Title */}
+                  <div className="flex flex-col">
+                    <div className="text-base text-black">CLAIM YOUR COMPLIMENTARY SAMPLE</div>
+                    <div className="text-xs text-black mt-2">LIMITED AVAILABILITY</div>
+                  </div>
+                  {/* Middle column - Labels */}
+                  <div className="flex flex-col space-y-6">
+                    <div className="text-xs text-black h-5 flex items-center">NAME</div>
+                    <div className="text-xs text-black h-5 flex items-center">COUNTRY</div>
+                    {hasStates() && <div className="text-xs text-black h-5 flex items-center">STATE</div>}
+                    <div className="text-xs text-black h-5 flex items-center">PHONE</div>
+                    <div className="text-xs text-black h-5 flex items-center">STREET</div>
+                    <div className="text-xs text-black h-5 flex items-center">POSTAL/ZIP</div>
+                    <div className="text-xs text-black h-5 flex items-center">CITY</div>
+                    <button
+                      type="submit"
+                      className={`text-xs text-black bg-transparent border-none cursor-pointer px-0 text-left ${
+                        isLoading ? 'opacity-50' : ''
+                      }`}
+                      disabled={isLoading}
+                    >
+                      {isLoading ? 'SUBMITTING...' : 'SUBMIT'}
+                    </button>
+                  </div>
+                  {/* Right column - Inputs */}
+                  <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
+                    <input
+                      type="text"
+                      placeholder="FULL NAME"
+                      value={formData.name}
+                      onChange={(e) => handleInputChange('name', e.target.value)}
+                      className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs h-5"
+                      spellCheck={false}
+                      required
+                    />
+                    <div className="relative">
+                      <button
+                        type="button"
+                        className="text-xs text-black bg-transparent border-none cursor-pointer hover:opacity-60 transition-opacity h-5 flex items-center text-left"
+                        onClick={() => {
+                          setShowCountryDropdown(!showCountryDropdown);
+                          setShowStateDropdown(false);
+                        }}
+                      >
+                        + {formData.country}
+                      </button>
+                      {showCountryDropdown && (
+                        <div className="absolute top-full left-0 mt-1 bg-white border-t border-black z-10 max-w-40 max-h-48 overflow-y-auto">
+                          {getAllCountries().map((country) => (
+                            <button
+                              key={country.code}
+                              type="button"
+                              className="block w-full text-left px-3 py-2 text-xs text-black hover:bg-gray-100 bg-transparent border-none cursor-pointer"
+                              onClick={() => handleCountryChange(country.name)}
+                            >
+                              {country.name}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    {hasStates() && (
+                      <div className="relative">
+                        <button
+                          type="button"
+                          className="text-xs text-black bg-transparent border-none cursor-pointer hover:opacity-60 transition-opacity h-5 flex items-center text-left"
+                          onClick={() => {
+                            setShowStateDropdown(!showStateDropdown);
+                            setShowCountryDropdown(false);
+                          }}
+                        >
+                          + {formData.state || 'SELECT STATE'}
+                        </button>
+                        {showStateDropdown && (
+                          <div className="absolute top-full left-0 mt-1 bg-white border-t border-black z-10 max-w-40 max-h-48 overflow-y-auto">
+                            {getStates().map((state) => (
+                              <button
+                                key={state}
+                                type="button"
+                                className="block w-full text-left px-3 py-2 text-xs text-black hover:bg-gray-100 bg-transparent border-none cursor-pointer"
+                                onClick={() => handleStateChange(state)}
+                              >
+                                {state}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    <input
+                      type="tel"
+                      placeholder="+1 PHONE NUMBER"
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange('phone', e.target.value)}
+                      className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs h-5"
+                      spellCheck={false}
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="STREET NAME & NUMBER"
+                      value={formData.street}
+                      onChange={(e) => handleInputChange('street', e.target.value)}
+                      className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs h-5"
+                      spellCheck={false}
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="POSTAL CODE"
+                      value={formData.postalCode}
+                      onChange={(e) => handleInputChange('postalCode', e.target.value)}
+                      className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs h-5"
+                      spellCheck={false}
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="CITY NAME"
+                      value={formData.city}
+                      onChange={(e) => handleInputChange('city', e.target.value)}
+                      className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs h-5"
+                      spellCheck={false}
+                      required
+                    />
+                  </form>
+                </div>
+              </div>
+            </div>
       </div>
 
       {/* Mobile Layout */}
@@ -269,13 +359,14 @@ export default function ClaimSample() {
           <div className="flex gap-12 w-full max-w-4xl">
             {/* Middle column - Labels */}
             <div className="flex flex-col space-y-6">
-              <div className="text-xs text-black">NAME</div>
-              <div className="text-xs text-black">EMAIL</div>
-              <div className="text-xs text-black">COUNTRY</div>
-              <div className="text-xs text-black">PHONE</div>
-              <div className="text-xs text-black">STREET</div>
-              <div className="text-xs text-black">POSTAL/ZIP</div>
-              <div className="text-xs text-black">CITY</div>
+              <div className="text-xs text-black h-5 flex items-center">NAME</div>
+              <div className="text-xs text-black h-5 flex items-center">EMAIL</div>
+              <div className="text-xs text-black h-5 flex items-center">COUNTRY</div>
+              {hasStates() && <div className="text-xs text-black h-5 flex items-center">STATE</div>}
+              <div className="text-xs text-black h-5 flex items-center">PHONE</div>
+              <div className="text-xs text-black h-5 flex items-center">STREET</div>
+              <div className="text-xs text-black h-5 flex items-center">POSTAL/ZIP</div>
+              <div className="text-xs text-black h-5 flex items-center">CITY</div>
               <button
                 type="submit"
                 className={`text-xs text-black bg-transparent border-none cursor-pointer px-0 text-left mt-3 ${
@@ -294,7 +385,7 @@ export default function ClaimSample() {
                 placeholder="FULL NAME"
                 value={formData.name}
                 onChange={(e) => handleInputChange('name', e.target.value)}
-                className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs "
+                className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs h-5"
                 spellCheck={false}
                 required
               />
@@ -304,34 +395,73 @@ export default function ClaimSample() {
                 placeholder="EMAIL ADDRESS"
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
-                className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs "
+                className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs h-5"
                 spellCheck={false}
                 required
               />
 
-              <div className="flex items-center gap-4">
+              <div className="relative">
                 <button
                   type="button"
-                  className="text-xs  text-black bg-transparent border-none cursor-pointer"
-                  onClick={() => handleInputChange('country', 'THE U.S.')}
+                  className="text-xs text-black bg-transparent border-none cursor-pointer hover:opacity-60 transition-opacity h-5 flex items-center text-left"
+                  onClick={() => {
+                    setShowCountryDropdown(!showCountryDropdown);
+                    setShowStateDropdown(false);
+                  }}
                 >
-                  + THE U.S.
+                  + {formData.country}
                 </button>
-                <button
-                  type="button"
-                  className="text-xs  text-black bg-transparent border-none cursor-pointer"
-                  onClick={() => handleInputChange('state', 'NEW YORK STATE')}
-                >
-                  + NEW YORK STATE
-                </button>
+                {showCountryDropdown && (
+                  <div className="absolute top-full left-0 mt-1 bg-white border-t border-black z-10 max-w-40 max-h-48 overflow-y-auto">
+                    {getAllCountries().map((country) => (
+                      <button
+                        key={country.code}
+                        type="button"
+                        className="block w-full text-left px-3 py-2 text-xs text-black hover:bg-gray-100 bg-transparent border-none cursor-pointer"
+                        onClick={() => handleCountryChange(country.name)}
+                      >
+                        {country.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
+
+              {hasStates() && (
+                <div className="relative">
+                  <button
+                    type="button"
+                    className="text-xs text-black bg-transparent border-none cursor-pointer hover:opacity-60 transition-opacity h-5 flex items-center text-left"
+                    onClick={() => {
+                      setShowStateDropdown(!showStateDropdown);
+                      setShowCountryDropdown(false);
+                    }}
+                  >
+                    + {formData.state || 'SELECT STATE'}
+                  </button>
+                  {showStateDropdown && (
+                    <div className="absolute top-full left-0 mt-1 bg-white border-t border-black z-10 max-w-40 max-h-48 overflow-y-auto">
+                      {getStates().map((state) => (
+                        <button
+                          key={state}
+                          type="button"
+                          className="block w-full text-left px-3 py-2 text-xs text-black hover:bg-gray-100 bg-transparent border-none cursor-pointer"
+                          onClick={() => handleStateChange(state)}
+                        >
+                          {state}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
 
               <input
                 type="tel"
                 placeholder="+1 PHONE NUMBER"
                 value={formData.phone}
                 onChange={(e) => handleInputChange('phone', e.target.value)}
-                className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs "
+                className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs h-5"
                 spellCheck={false}
                 required
               />
@@ -341,7 +471,7 @@ export default function ClaimSample() {
                 placeholder="STREET NAME & NUMBER"
                 value={formData.street}
                 onChange={(e) => handleInputChange('street', e.target.value)}
-                className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs "
+                className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs h-5"
                 spellCheck={false}
                 required
               />
@@ -351,7 +481,7 @@ export default function ClaimSample() {
                 placeholder="POSTAL CODE"
                 value={formData.postalCode}
                 onChange={(e) => handleInputChange('postalCode', e.target.value)}
-                className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs "
+                className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs h-5"
                 spellCheck={false}
                 required
               />
@@ -361,7 +491,7 @@ export default function ClaimSample() {
                 placeholder="CITY NAME"
                 value={formData.city}
                 onChange={(e) => handleInputChange('city', e.target.value)}
-                className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs "
+                className="bg-transparent text-black placeholder-black/60 focus:outline-none focus:ring-0 border-none text-xs h-5"
                 spellCheck={false}
                 required
               />

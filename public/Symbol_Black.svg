@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1"
+   width="922.66669"
+   height="1564"
+   viewBox="0 0 922.66669 1564"
+   sodipodi:docname="Symbol_Black.eps"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:page
+       x="0"
+       y="0"
+       inkscape:label="1"
+       id="page1"
+       width="922.66669"
+       height="1564"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <g
+     id="g1"
+     inkscape:groupmode="layer"
+     inkscape:label="1">
+    <g
+       id="group-R5">
+      <path
+         id="path2"
+         d="M 5000,7690 H 840 C 160,7690 0,7530 0,6850 V 5150 c 0,-620 120,-780 1020,-780 v -80 C 120,4290 0,4130 0,3510 v -970 c 0,-680 160,-840 840,-840 h 2430 c 510,0 510,-200 540,-550 C 3870,480 4300,0 4950,0 c 630,0 1140,510 1140,1140 0,630 -480,1140 -1230,1140 H 1920 c -580,0 -630,50 -630,630 v 500 c 0,580 50,630 630,630 h 4160 c 680,0 840,160 840,840 v 1700 c 0,620 -120,780 -1020,780 v 80 c 900,0 1020,160 1020,780 v 970 c 0,680 -160,840 -840,840 H 3650 c -510,0 -510,200 -540,550 -60,670 -490,1150 -1140,1150 -630,0 -1140,-510 -1140,-1140 0,-630 480,-1140 1230,-1140 h 2940 c 580,0 630,-50 630,-630 v -500 c 0,-580 -50,-630 -630,-630 z M 1290,5250 v 1230 c 0,590 40,630 630,630 h 3080 c 600,0 630,-40 630,-630 V 5250 c 0,-590 -40,-630 -630,-630 H 1920 c -600,0 -630,40 -630,630"
+         style="fill:#231f20;fill-opacity:1;fill-rule:nonzero;stroke:none"
+         transform="matrix(0.13333333,0,0,-0.13333333,0,1564)" />
+    </g>
+  </g>
+</svg>

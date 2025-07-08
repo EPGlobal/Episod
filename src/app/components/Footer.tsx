@@ -7,7 +7,7 @@ export default function Footer() {
         {/* Logo */}
         <div className="w-full lg:w-1/2 mb-8 lg:mb-0">
           <Image 
-            src="/logo-large.png" 
+            src="/episod_logo_large.svg" 
             alt="EPISOD" 
             width={300} 
             height={100} 
@@ -20,23 +20,23 @@ export default function Footer() {
           <div className="flex flex-col lg:flex-row lg:gap-8">
             {/* First Column on Desktop / Mobile Order */}
             <div className="flex justify-between lg:gap-12 lg:justify-center flex-1">
-              <a href="#" className="text-black text-xs  hover:opacity-70 transition-opacity">
+              <a href="#" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
                 2025
               </a>
-              <a href="#" className="text-black text-xs  hover:opacity-70 transition-opacity">
+              <a href="#" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
                 INSTAGRAM
               </a>
-              <a href="#" className="text-black text-xs  hover:opacity-70 transition-opacity">
+              <a href="#" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
                 CONTACT
               </a>
             </div>
 
             {/* Second Column on Desktop / Mobile Order */}
             <div className="flex lg:flex-col justify-between lg:items-end mt-4 lg:mt-0">
-              <span className="text-black text-xs">
+              <span className="text-black text-[10px]">
                 COPYRIGHT 2025 EP. GLOBAL AB
               </span>
-              <span className="text-black text-xs">
+              <span className="text-black text-[8px]">
                 ACENGY NINETIES
               </span>
             </div>

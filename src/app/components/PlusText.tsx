@@ -6,7 +6,7 @@ interface PlusTextProps {
 export default function PlusText({ children, className = "" }: PlusTextProps) {
   return (
     <div className={`text-xs ${className} flex`}>
-      <span className="pr-6">+</span>
+      <span className="pr-5 text-sm leading-3.5">+</span>
       <p className="uppercase">
         {children}
       </p>
