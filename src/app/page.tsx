@@ -23,7 +23,7 @@ export default function Home() {
     <div>
 
       {/* Hero */}
-      <div className="min-h-[90vh] flex lg:items-center justify-center px-16 pt-24 lg:py-24 relative">
+      <div className="min-h-[90vh] flex lg:items-center justify-center px-16 pt-24 lg:pt-40 lg:py-24 relative">
         <div className="w-full absolute top-0 left-0 z-50 p-4 flex items-center justify-between lg:flex-col lg:h-[90vh] lg:max-w-96 lg:items-start px-8">
           <Image src="/Symbol_Black.svg" alt="Logo" width={18} height={30} className="h-8 w-auto basis-0 lg:absolute" />
           <div className="hidden lg:flex"></div>
@@ -38,7 +38,7 @@ export default function Home() {
         </div> */}
         <div className=" relative">
 
-          <div className="w-full lg:max-w-[65vw] h-[70vh]">
+          <div className="w-full lg:max-w-[65vw] h-[65vh]">
             <video
               className="w-full h-full object-cover"
               autoPlay

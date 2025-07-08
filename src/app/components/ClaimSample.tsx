@@ -180,8 +180,8 @@ export default function ClaimSample() {
             </div>
           </div>
         </div>
-        <div className='w-3/5 shrink-0'>
-              <div className="p-8 lg:p-16 flex flex-col gap-8 overflow-hidden sticky top-0">
+        <div className='w-7/12 shrink-0 h-screen flex items-center sticky top-0'>
+              <div className="p-8 lg:p-16 flex flex-col gap-8 overflow-hidden">
                 <div className="flex gap-12 w-full max-w-4xl">
                   {/* Left column - Title */}
                   <div className="flex flex-col">

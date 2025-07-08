@@ -23,10 +23,10 @@ export default function Footer() {
               <a href="#" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
                 2025
               </a>
-              <a href="#" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
+              <a href="https://www.instagram.com/episod.global/" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
                 INSTAGRAM
               </a>
-              <a href="#" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
+              <a href="" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
                 CONTACT
               </a>
             </div>
