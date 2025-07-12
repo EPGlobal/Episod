@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="p-8 pt-36 lg:pt-8">
       <div className="flex flex-col lg:flex-row lg:items-start">
         {/* Logo */}
-        <div className="w-full lg:w-1/2 mb-8 lg:mb-0">
+        <div className="w-full lg:w-1/2 mb-5 lg:mb-0">
           <Image 
             src="/episod_logo_large.svg" 
             alt="EPISOD" 
@@ -20,13 +20,13 @@ export default function Footer() {
           <div className="flex flex-col lg:flex-row lg:gap-8">
             {/* First Column on Desktop / Mobile Order */}
             <div className="flex justify-between lg:gap-12 lg:justify-center flex-1">
-              <a href="#" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
+              <p className="text-black text-[10px]  hover:opacity-70 transition-opacity">
                 2025
-              </a>
-              <a href="https://www.instagram.com/episod.global/" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
+              </p>
+              <a href="https://www.instagram.com/episod.global/" target="_blank" rel="noreferrer" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
                 INSTAGRAM
               </a>
-              <a href="" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
+              <a href="mailto:info@episod.global" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
                 CONTACT
               </a>
             </div>
