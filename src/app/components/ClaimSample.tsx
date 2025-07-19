@@ -173,7 +173,7 @@ export default function ClaimSample() {
         </div>
         <div className='w-[53%] shrink-0 h-screen flex items-center sticky top-0'>
           <div className="p-8 lg:p-16 flex flex-col gap-8 overflow-hidden">
-            <div className="flex gap-12 w-full max-w-4xl">
+            <form onSubmit={handleSubmit} className="flex gap-12 w-full max-w-4xl">
               {/* Left column - Title */}
               <div className="flex flex-col">
                 <div className="text-base text-black">CLAIM YOUR COMPLIMENTARY SAMPLE</div>
@@ -198,7 +198,7 @@ export default function ClaimSample() {
                 </button>
               </div>
               {/* Right column - Inputs */}
-              <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
+              <div className="flex flex-col space-y-6">
                 <input
                   type="text"
                   placeholder="FULL NAME"
@@ -284,8 +284,8 @@ export default function ClaimSample() {
                   spellCheck={false}
                   required
                 />
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -332,7 +332,7 @@ export default function ClaimSample() {
             <div className="text-base text-black">CLAIM YOUR COMPLIMENTARY SAMPLE</div>
             <div className="text-xs text-black">LIMITED AVAILABILITY</div>
           </div>
-          <div className="flex gap-12 w-full max-w-4xl">
+          <form onSubmit={handleSubmit} className="flex gap-12 w-full max-w-4xl">
             {/* Middle column - Labels */}
             <div className="flex flex-col space-y-6">
               <div className="text-xs text-black h-5 flex items-center">NAME</div>
@@ -353,7 +353,7 @@ export default function ClaimSample() {
             </div>
 
             {/* Right column - Inputs */}
-            <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
+            <div className="flex flex-col space-y-6">
               <input
                 type="text"
                 placeholder="FULL NAME"
@@ -444,8 +444,9 @@ export default function ClaimSample() {
                 spellCheck={false}
                 required
               />
-            </form>
-          </div>
+
+            </div>
+          </form>
         </div>
       </div>
     </div>

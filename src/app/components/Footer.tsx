@@ -26,7 +26,7 @@ export default function Footer() {
               <a href="https://www.instagram.com/episod.global/" target="_blank" rel="noreferrer" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
                 INSTAGRAM
               </a>
-              <a href="mailto:info@episod.global" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
+              <a href="mailto:contact@episod.global" className="text-black text-[10px]  hover:opacity-70 transition-opacity">
                 CONTACT
               </a>
             </div>
