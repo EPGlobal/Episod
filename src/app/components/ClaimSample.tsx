@@ -74,6 +74,13 @@ export default function ClaimSample() {
     e.preventDefault();
     setIsLoading(true);
 
+    // Get the latest email from localStorage just before submission
+    const userEmail = localStorage.getItem('userEmail');
+    const submissionData = {
+      ...formData,
+      email: userEmail || formData.email
+    };
+
     try {
       // Submit to Klaviyo
       const response = await fetch('/api/klaviyo/claim-sample', {
@@ -81,7 +88,7 @@ export default function ClaimSample() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submissionData),
       });
 
       if (response.ok) {
@@ -99,7 +106,9 @@ export default function ClaimSample() {
 
   useEffect(() => {
     // prefill email
+    console.log('Prefilling email');
     const userEmail = localStorage.getItem('userEmail');
+    console.log('User email from localStorage:', userEmail);
     if (userEmail) {
       setFormData(prev => ({
         ...prev,
@@ -109,16 +118,6 @@ export default function ClaimSample() {
 
   }, []);
 
-  if (isSubmitted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-2xl text-black mb-4">THANK YOU</div>
-          <div className="text-xs text-black">Your sample claim has been submitted successfully.</div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="">
@@ -172,13 +171,21 @@ export default function ClaimSample() {
           </div>
         </div>
         <div className='w-[53%] shrink-0 h-screen flex items-center sticky top-0'>
-          <div className="p-8 lg:p-16 flex flex-col gap-8 overflow-hidden">
-            <form onSubmit={handleSubmit} className="flex gap-12 w-full max-w-4xl">
-              {/* Left column - Title */}
-              <div className="flex flex-col">
-                <div className="text-base text-black">CLAIM YOUR COMPLIMENTARY SAMPLE</div>
-                <div className="text-xs text-black mt-2">LIMITED AVAILABILITY</div>
+          <div className={`p-8 lg:p-16 flex flex-col gap-8 overflow-hidden ${isSubmitted ? 'w-full': ''}`}>
+            {isSubmitted ? (
+              <div className="flex items-center justify-center w-full">
+                <div className="text-center">
+                  <div className="text-base text-black mb-2">THANK YOU</div>
+                  <div className="text-xs text-black">Your sample claim has been submitted successfully.</div>
+                </div>
               </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="flex gap-12 w-full max-w-4xl">
+                {/* Left column - Title */}
+                <div className="flex flex-col">
+                  <div className="text-base text-black">CLAIM YOUR COMPLIMENTARY SAMPLE</div>
+                  <div className="text-xs text-black mt-2">LIMITED AVAILABILITY</div>
+                </div>
               {/* Middle column - Labels */}
               <div className="flex flex-col space-y-6">
                 <div className="text-xs text-black h-5 flex items-center">NAME</div>
@@ -286,6 +293,7 @@ export default function ClaimSample() {
                 />
               </div>
             </form>
+            )}
           </div>
         </div>
       </div>
@@ -328,11 +336,20 @@ export default function ClaimSample() {
 
         {/* Form below all images on mobile */}
         <div className="p-8 flex flex-col gap-8">
-          <div className="flex flex-col">
-            <div className="text-base text-black">CLAIM YOUR COMPLIMENTARY SAMPLE</div>
-            <div className="text-xs text-black">LIMITED AVAILABILITY</div>
-          </div>
-          <form onSubmit={handleSubmit} className="flex gap-12 w-full max-w-4xl">
+          {isSubmitted ? (
+            <div className="flex items-center justify-center w-full">
+              <div className="text-center">
+                <div className="text-base text-black mb-2">THANK YOU</div>
+                <div className="text-xs text-black">Your sample claim has been submitted successfully.</div>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="flex flex-col">
+                <div className="text-base text-black">CLAIM YOUR COMPLIMENTARY SAMPLE</div>
+                <div className="text-xs text-black">LIMITED AVAILABILITY</div>
+              </div>
+              <form onSubmit={handleSubmit} className="flex gap-12 w-full max-w-4xl">
             {/* Middle column - Labels */}
             <div className="flex flex-col space-y-6">
               <div className="text-xs text-black h-5 flex items-center">NAME</div>
@@ -447,6 +464,8 @@ export default function ClaimSample() {
 
             </div>
           </form>
+          </>
+          )}
         </div>
       </div>
     </div>
