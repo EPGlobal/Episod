@@ -62,10 +62,10 @@ export const metadata: Metadata = {
     siteName: "EPISOD",
     images: [
       {
-        url: "/logo.png",
-        width: 174,
-        height: 181,
-        alt: "EPISOD Logo",
+        url: "/1.jpg",
+        width: 1200,
+        height: 630,
+        alt: "EPISOD",
       },
     ],
   },
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "EPISOD",
     description: "Rooted in the raw with rare ingredients, made to awaken every sense and disrupt all frequencies.",
-    images: ["/logo.png"],
+    images: ["/1.jpg"],
   },
   icons: {
     icon: "/favicon.ico",
