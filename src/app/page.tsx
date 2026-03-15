@@ -6,6 +6,7 @@ import PlusText from "./components/PlusText";
 import EmailEntry from "./components/EmailEntry";
 import Footer from "./components/Footer";
 import ClaimSample from "./components/ClaimSample";
+import ProductCarousel from "./components/ProductCarousel";
 import AnimatedNavText from "./components/AnimatedNavText";
 
 export default function Home() {
@@ -80,6 +81,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <ProductCarousel />
 
       <ClaimSample />
 

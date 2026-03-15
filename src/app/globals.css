@@ -5,6 +5,10 @@
   --font-family-sans: var(--font-unica77), ui-sans-serif, system-ui, sans-serif;
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Fix webkit autofill background on mobile */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
