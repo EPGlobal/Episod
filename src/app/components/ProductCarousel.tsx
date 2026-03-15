@@ -26,7 +26,7 @@ export default function ProductCarousel() {
           loopAdditionalSlides={3}
           slidesPerView={1.3}
           centeredSlides
-          spaceBetween={8}
+          spaceBetween={2}
         >
           {images.map((img, i) => (
             <SwiperSlide key={i}>
@@ -46,7 +46,7 @@ export default function ProductCarousel() {
       </div>
 
       {/* Desktop: 3 images side by side */}
-      <div className="hidden lg:flex gap-2 mb-2">
+      <div className="hidden lg:flex gap-0.5 mb-2">
         {baseImages.map((img, i) => (
           <div key={i} className="relative bg-gray-100 flex-1">
             <div className="relative w-full pt-[133%]">
