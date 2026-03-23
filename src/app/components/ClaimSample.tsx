@@ -303,7 +303,7 @@ export default function ClaimSample() {
         {/* Three stacked images full width */}
         <div className="relative bg-gray-100 w-full   pt-[133%]">
           <Image
-            src="/1.jpg"
+            src="/Episod_Original_852Hz_Side.webp"
             alt="Product Sample 1"
             fill
             className="object-cover"
@@ -314,7 +314,7 @@ export default function ClaimSample() {
 
         <div className="relative bg-gray-100 w-full   pt-[133%]">
           <Image
-            src="/2.jpg"
+            src="/Episod_Original_NoSingal_Front_Cropped.webp"
             alt="Product Sample 2"
             fill
             className="object-cover"
