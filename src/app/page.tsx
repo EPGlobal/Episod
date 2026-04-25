@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 import ClaimSample from "./components/ClaimSample";
 import ProductCarousel from "./components/ProductCarousel";
 import AnimatedNavText from "./components/AnimatedNavText";
-import PreorderCTA from "./components/PreorderCTA";
+// import PreorderCTA from "./components/PreorderCTA";
 
 export default function Home() {
   const [showValidationError, setShowValidationError] = useState(false);
@@ -89,7 +89,7 @@ export default function Home() {
 
       <Footer />
 
-      <PreorderCTA />
+      {/* <PreorderCTA /> */}
 
     </div>
   );
