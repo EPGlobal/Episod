@@ -4,11 +4,14 @@ import { useState, useEffect } from 'react';
 import PlusText from './PlusText';
 
 interface AnimatedNavTextProps {
-  onValidationError: boolean;
-  onAnimationComplete: () => void;
+  onValidationError?: boolean;
+  onAnimationComplete?: () => void;
 }
 
-export default function AnimatedNavText({ onValidationError, onAnimationComplete }: AnimatedNavTextProps) {
+export default function AnimatedNavText({
+  onValidationError = false,
+  onAnimationComplete = () => {},
+}: AnimatedNavTextProps = {}) {
   const [displayText, setDisplayText] = useState('HIGH-END BY INSTINCT');
   const [isAnimating, setIsAnimating] = useState(false);
   

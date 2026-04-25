@@ -13,9 +13,6 @@ const baseImages = [
 // Duplicate so Swiper loop mode has enough slides to work smoothly
 const images = [...baseImages, ...baseImages];
 
-const blurDataURL =
-  'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=';
-
 export default function ProductCarousel() {
   return (
     <div>
@@ -36,8 +33,6 @@ export default function ProductCarousel() {
                   alt={img.alt}
                   fill
                   className="object-cover"
-                  placeholder="blur"
-                  blurDataURL={blurDataURL}
                 />
               </div>
             </SwiperSlide>
@@ -55,8 +50,6 @@ export default function ProductCarousel() {
                 alt={img.alt}
                 fill
                 className="object-cover"
-                placeholder="blur"
-                blurDataURL={blurDataURL}
               />
             </div>
           </div>
