@@ -1,0 +1,14 @@
+{% for item in event.Items %}
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family: Helvetica, Arial, sans-serif; color: #000; font-size: 14px; line-height: 1.5; margin-bottom: 40px;">
+  <tr>
+    <td width="360" valign="top" style="padding-right: 32px;">
+      <img src="{{ item.ImageURL }}" alt="{{ item.ProductName }}" width="360" height="360" style="display: block; width: 360px; height: 360px; object-fit: cover; background: #eeeeee;" />
+    </td>
+    <td valign="top">
+      <div style="font-weight: 700; margin-bottom: 20px;">{{ item.ProductName }}</div>
+      <div style="margin-bottom: 20px;">Olfaction: {{ item.Olfaction }}</div>
+      <div>Ingredients: {{ item.Ingredients }}</div>
+    </td>
+  </tr>
+</table>
+{% endfor %}

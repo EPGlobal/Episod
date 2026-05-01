@@ -16,9 +16,9 @@ function ThanksContent() {
       <div className="flex flex-col items-center gap-8 max-w-lg">
         <div className="flex flex-col gap-3">
           <div className="text-xs text-black/60 tracking-[0.2em]">ORDER RECEIVED</div>
-          <div className="text-3xl lg:text-4xl text-black tracking-wider">
+          {/* <div className="text-3xl lg:text-4xl text-black tracking-wider">
             WELCOME TO EPISOD.
-          </div>
+          </div> */}
         </div>
 
         <div className="w-8 h-px bg-black/20" aria-hidden />
